@@ -2,7 +2,6 @@ package com.viper.rest.webservices.restfulwebservices.service;
 
 
 import com.viper.rest.webservices.restfulwebservices.entity.User;
-import com.viper.rest.webservices.restfulwebservices.exception.ResourceNotFound;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -30,7 +29,7 @@ public class UserDaoService {
         return user;
     }
 
-    public User findById(int id) throws ResourceNotFound {
-        return users.stream().filter(user -> user.getId() == id).findFirst().orElseThrow(ResourceNotFound::new);
+    public User findById(int id) {
+        return users.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
     }
 }

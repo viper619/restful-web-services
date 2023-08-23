@@ -1,7 +1,7 @@
 package com.viper.rest.webservices.restfulwebservices.controller;
 
 import com.viper.rest.webservices.restfulwebservices.entity.User;
-import com.viper.rest.webservices.restfulwebservices.exception.ResourceNotFound;
+import com.viper.rest.webservices.restfulwebservices.exception.ResourceNotFoundException;
 import com.viper.rest.webservices.restfulwebservices.service.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +23,11 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User fetchUser(@PathVariable int id) throws Exception {
-        try{
-            return userDaoService.findById(id);
-        } catch (ResourceNotFound resourceNotFound) {
-            // This is where we use AOP
-            throw new Exception("Not found");
-        }
+    public User fetchUser(@PathVariable int id) {
+        User user = userDaoService.findById(id);
+        if(user==null)
+            throw new ResourceNotFoundException(String.format("User with id=%s not found." , id));
+        return user;
     }
 
     @PostMapping("/users")
