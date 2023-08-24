@@ -1,10 +1,17 @@
 package com.viper.rest.webservices.restfulwebservices.entity;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class User {
     private int id;
+    @Size(min = 2, message = "name must have minimum 2 characters")
     private String name;
+    @Past(message = "birthDate must be in past")
     private LocalDate birthDate;
 
     public User(int id, String name, LocalDate birthDate) {

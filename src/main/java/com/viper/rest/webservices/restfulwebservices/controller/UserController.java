@@ -3,6 +3,7 @@ package com.viper.rest.webservices.restfulwebservices.controller;
 import com.viper.rest.webservices.restfulwebservices.entity.User;
 import com.viper.rest.webservices.restfulwebservices.exception.ResourceNotFoundException;
 import com.viper.rest.webservices.restfulwebservices.service.UserDaoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
+    public ResponseEntity<User> saveUser(@Valid @RequestBody User user) {
         User savedUser = userDaoService.save(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(location).body(savedUser);
