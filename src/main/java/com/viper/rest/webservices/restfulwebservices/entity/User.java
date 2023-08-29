@@ -1,7 +1,5 @@
 package com.viper.rest.webservices.restfulwebservices.entity;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
